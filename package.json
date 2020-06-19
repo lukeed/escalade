@@ -5,6 +5,7 @@
   "description": "Scale parent directories",
   "module": "dist/index.mjs",
   "main": "dist/index.js",
+  "types": "index.d.ts",
   "license": "MIT",
   "author": {
     "name": "Luke Edwards",
