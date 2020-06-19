@@ -2,7 +2,7 @@
   "name": "escalade",
   "version": "0.0.0",
   "repository": "lukeed/escalade",
-  "description": "Scale parent directories",
+  "description": "A tiny (186B to 214B) and fast utility to ascend parent directories",
   "module": "dist/index.mjs",
   "main": "dist/index.js",
   "types": "index.d.ts",
@@ -39,7 +39,14 @@
     "pretest": "npm run build",
     "test": "uvu -r esm test -i fixtures"
   },
-  "keywords": [],
+  "keywords": [
+    "find",
+    "parent",
+    "parents",
+    "directory",
+    "search",
+    "walk"
+  ],
   "devDependencies": {
     "bundt": "1.0.1",
     "esm": "3.2.25",
