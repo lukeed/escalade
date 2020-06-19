@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "devDependencies": {
+    "benchmark": "2.1.4",
+    "escalade": "file:../",
+    "find-up": "4.1.0"
+  }
+}
