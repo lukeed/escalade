@@ -74,4 +74,18 @@ test('should end after `process.cwd()` read', () => {
 	assert.is(output, resolve('.', 'package.json'))
 });
 
+test('should handle deeper traversals', () => {
+	let levels=0, contents=0;
+	const input = join(fixtures, 'foo', 'bar', 'hello', 'world.txt');
+
+	escalade(input, (dir, names) => {
+		levels++;
+		contents += names.length;
+		if (dir === fixtures) return dir;
+	});
+
+	assert.is(levels, 4);
+	assert.is(contents, 10);
+});
+
 test.run();

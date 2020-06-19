@@ -74,6 +74,20 @@ test('should end after `process.cwd()` read', async () => {
 	assert.is(output, resolve('.', 'package.json'))
 });
 
+test('should handle deeper traversals', async () => {
+	let levels=0, contents=0;
+	const input = join(fixtures, 'foo', 'bar', 'hello', 'world.txt');
+
+	await escalade(input, (dir, names) => {
+		levels++;
+		contents += names.length;
+		if (dir === fixtures) return dir;
+	});
+
+	assert.is(levels, 4);
+	assert.is(contents, 10);
+});
+
 test('should support async callback', async () => {
 	let levels = 0;
 	const sleep = () => new Promise(r => setTimeout(r, 10));
