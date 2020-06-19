@@ -50,6 +50,17 @@ test('should terminate walker immediately', () => {
 	assert.is(output, join(fixtures, '1.js'));
 });
 
+test('should never leave `process.cwd()` parent', () => {
+	let levels = 0;
+	let output = escalade(fixtures, () => {
+		levels++;
+		return false;
+	});
+
+	assert.is(levels, 3);
+	assert.is(output, undefined)
+});
+
 test('should end after `process.cwd()` read', () => {
 	let levels = 0;
 	let output = escalade(fixtures, (dir, files) => {

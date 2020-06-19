@@ -50,6 +50,17 @@ test('should terminate walker immediately', async () => {
 	assert.is(output, join(fixtures, '1.js'));
 });
 
+test('should never leave `process.cwd()` parent', async () => {
+	let levels = 0;
+	let output = await escalade(fixtures, () => {
+		levels++;
+		return false;
+	});
+
+	assert.is(levels, 3);
+	assert.is(output, undefined)
+});
+
 test('should end after `process.cwd()` read', async () => {
 	let levels = 0;
 	let output = await escalade(fixtures, (dir, files) => {
@@ -61,6 +72,17 @@ test('should end after `process.cwd()` read', async () => {
 
 	assert.is(levels, 3);
 	assert.is(output, resolve('.', 'package.json'))
+});
+
+test('should support async callback', async () => {
+	let levels = 0;
+	const sleep = () => new Promise(r => setTimeout(r, 10));
+	let output = await escalade(fixtures, async () => {
+		await sleep().then(() => levels++);
+	});
+
+	assert.is(levels, 3);
+	assert.is(output, undefined);
 });
 
 test.run();
