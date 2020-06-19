@@ -1,4 +1,4 @@
-# uid [![CI](https://github.com/lukeed/escalade/workflows/CI/badge.svg))](https://github.com/lukeed/escalade/actions) [![codecov](https://badgen.now.sh/codecov/c/github/lukeed/escalade)](https://codecov.io/gh/lukeed/escalade)
+# escalade [![CI](https://github.com/lukeed/escalade/workflows/CI/badge.svg)](https://github.com/lukeed/escalade/actions) [![codecov](https://badgen.now.sh/codecov/c/github/lukeed/escalade)](https://codecov.io/gh/lukeed/escalade)
 
 > A tiny (186B to 214B) and [fast](#benchmarks) utility to ascend parent directories
 
