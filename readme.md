@@ -23,7 +23,7 @@ There are two "versions" of `escalade` available:
 #### "async"
 > **Node.js:** >= 8.x<br>
 > **Size (gzip):** 214 bytes<br>
-> **Availability:** [CommonJS](https://unpkg.com/escalade/async/index.js), [ES Module](https://unpkg.com/escalade/async/index.mjs)
+> **Availability:** [CommonJS](https://unpkg.com/escalade/dist/index.js), [ES Module](https://unpkg.com/escalade/dist/index.mjs)
 
 This is the primary/default mode. It makes use of `async`/`await` and [`util.promisify`](https://nodejs.org/api/util.html#util_util_promisify_original).
 
