@@ -6,18 +6,16 @@ const toStats = promisify(stat);
 const toRead = promisify(readdir);
 
 export default async function (start, callback) {
-	let stop = resolve('.');
+	let tmp, stop = resolve('.');
 	let dir = resolve('.', start);
 	let stats = await toStats(dir);
-	let tmp, files;
 
 	if (!stats.isDirectory()) {
 		dir = dirname(dir);
 	}
 
 	while (dir.startsWith(stop)) {
-		files = await toRead(dir);
-		tmp = await callback(dir, files);
+		tmp = await callback(dir, await toRead(dir));
 		if (tmp) return resolve(dir, tmp);
 		dir = dirname(dir);
 	}
