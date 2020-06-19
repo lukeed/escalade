@@ -20,6 +20,17 @@ test('should respect absolute output', () => {
 	assert.is(output, foobar);
 });
 
+test('should allow file input', () => {
+	let levels = 0;
+	let input = join(fixtures, 'index.js');
+	let output = escalade(input, dir => {
+		levels++;
+		return dir === fixtures && fixtures;
+	});
+	assert.is(levels, 1)
+	assert.is(output, fixtures);
+});
+
 test('should receive directory names in contents list', () => {
 	let levels = 0;
 	let output = escalade(fixtures, (dir, files) => {
