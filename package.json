@@ -32,7 +32,7 @@
     "default": "src/async.js"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=6"
   },
   "scripts": {
     "build": "bundt",
