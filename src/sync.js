@@ -1,8 +1,9 @@
 import { dirname, resolve } from 'path';
 import { readdirSync, statSync } from 'fs';
+import { homedir } from 'os';
 
 export default function (start, callback) {
-	let tmp, stop = resolve('.');
+	let tmp, stop = homedir();
 	let dir = resolve('.', start);
 	let stats = statSync(dir);
 

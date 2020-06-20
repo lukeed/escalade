@@ -1,4 +1,5 @@
 import { test } from 'uvu';
+import { homedir } from 'os';
 import { join, resolve } from 'path';
 import * as assert from 'uvu/assert';
 import escalade from '../src/async';
@@ -50,15 +51,16 @@ test('should terminate walker immediately', async () => {
 	assert.is(output, join(fixtures, '1.js'));
 });
 
-test('should never leave `process.cwd()` parent', async () => {
+test('should never leave `os.homedir()` parent', async () => {
 	let levels = 0;
 	let output = await escalade(fixtures, () => {
 		levels++;
 		return false;
 	});
 
-	assert.is(levels, 3);
-	assert.is(output, undefined)
+	let rgx = /[\/\\]+/g;
+	assert.is(output, undefined);
+	assert.is(levels, 1 + fixtures.split(rgx).length - homedir().split(rgx).length);
 });
 
 test('should end after `process.cwd()` read', async () => {
@@ -91,12 +93,13 @@ test('should handle deeper traversals', async () => {
 test('should support async callback', async () => {
 	let levels = 0;
 	const sleep = () => new Promise(r => setTimeout(r, 10));
-	let output = await escalade(fixtures, async () => {
+	let output = await escalade(fixtures, async (dir) => {
 		await sleep().then(() => levels++);
+		if (levels === 3) return dir;
 	});
 
 	assert.is(levels, 3);
-	assert.is(output, undefined);
+	assert.is(output, resolve(fixtures, '..', '..'));
 });
 
 test.run();

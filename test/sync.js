@@ -1,4 +1,5 @@
 import { test } from 'uvu';
+import { homedir } from 'os';
 import { join, resolve } from 'path';
 import * as assert from 'uvu/assert';
 import escalade from '../src/sync';
@@ -50,15 +51,16 @@ test('should terminate walker immediately', () => {
 	assert.is(output, join(fixtures, '1.js'));
 });
 
-test('should never leave `process.cwd()` parent', () => {
+test('should never leave `os.homedir()` parent', () => {
 	let levels = 0;
 	let output = escalade(fixtures, () => {
 		levels++;
 		return false;
 	});
 
-	assert.is(levels, 3);
-	assert.is(output, undefined)
+	let rgx = /[\/\\]+/g;
+	assert.is(output, undefined);
+	assert.is(levels, 1 + fixtures.split(rgx).length - homedir().split(rgx).length);
 });
 
 test('should end after `process.cwd()` read', () => {
