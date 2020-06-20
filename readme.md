@@ -1,6 +1,6 @@
 # escalade [![CI](https://github.com/lukeed/escalade/workflows/CI/badge.svg)](https://github.com/lukeed/escalade/actions) [![codecov](https://badgen.now.sh/codecov/c/github/lukeed/escalade)](https://codecov.io/gh/lukeed/escalade)
 
-> A tiny (186B to 214B) and [fast](#benchmarks) utility to ascend parent directories
+> A tiny (196B to 224B) and [fast](#benchmarks) utility to ascend parent directories
 
 With [escalade](https://en.wikipedia.org/wiki/Escalade), you can scale parent directories until you've found what you're looking for.<br>Given an input file or directory, `escalade` will continue executing your callback function until either:
 
@@ -22,14 +22,14 @@ There are two "versions" of `escalade` available:
 
 #### "async"
 > **Node.js:** >= 8.x<br>
-> **Size (gzip):** 214 bytes<br>
+> **Size (gzip):** 224 bytes<br>
 > **Availability:** [CommonJS](https://unpkg.com/escalade/dist/index.js), [ES Module](https://unpkg.com/escalade/dist/index.mjs)
 
 This is the primary/default mode. It makes use of `async`/`await` and [`util.promisify`](https://nodejs.org/api/util.html#util_util_promisify_original).
 
 #### "sync"
 > **Node.js:** >= 6.x<br>
-> **Size (gzip):** 186 bytes<br>
+> **Size (gzip):** 196 bytes<br>
 > **Availability:** [CommonJS](https://unpkg.com/escalade/sync/index.js), [ES Module](https://unpkg.com/escalade/sync/index.mjs)
 
 This is the opt-in mode, ideal for scenarios where `async` usage cannot be supported.
