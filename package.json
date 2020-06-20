@@ -1,6 +1,6 @@
 {
   "name": "escalade",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "repository": "lukeed/escalade",
   "description": "A tiny (196B to 224B) and fast utility to ascend parent directories",
   "module": "dist/index.mjs",
