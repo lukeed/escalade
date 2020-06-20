@@ -1,13 +1,13 @@
 # escalade [![CI](https://github.com/lukeed/escalade/workflows/CI/badge.svg)](https://github.com/lukeed/escalade/actions) [![codecov](https://badgen.now.sh/codecov/c/github/lukeed/escalade)](https://codecov.io/gh/lukeed/escalade)
 
-> A tiny (196B to 224B) and [fast](#benchmarks) utility to ascend parent directories
+> A tiny (183B to 210B) and [fast](#benchmarks) utility to ascend parent directories
 
 With [escalade](https://en.wikipedia.org/wiki/Escalade), you can scale parent directories until you've found what you're looking for.<br>Given an input file or directory, `escalade` will continue executing your callback function until either:
 
 1) the callback returns a truthy value
-2) `escalade` has reached the `$HOME` directory ([`os.homedir()`](https://nodejs.org/api/os.html#os_os_homedir))
+2) `escalade` has reached the system root directory (eg, `/`)
 
-> **Important:**<br>Please note that `escalade` will never traverse _beyond_ the user's home directory.<br>Additionally, `escalade` only deals with direct ancestry – it will not dive into parents' sibling directories.
+> **Important:**<br>Please note that `escalade` only deals with direct ancestry – it will not dive into parents' sibling directories.
 
 ## Install
 
@@ -22,14 +22,14 @@ There are two "versions" of `escalade` available:
 
 #### "async"
 > **Node.js:** >= 8.x<br>
-> **Size (gzip):** 224 bytes<br>
+> **Size (gzip):** 210 bytes<br>
 > **Availability:** [CommonJS](https://unpkg.com/escalade/dist/index.js), [ES Module](https://unpkg.com/escalade/dist/index.mjs)
 
 This is the primary/default mode. It makes use of `async`/`await` and [`util.promisify`](https://nodejs.org/api/util.html#util_util_promisify_original).
 
 #### "sync"
 > **Node.js:** >= 6.x<br>
-> **Size (gzip):** 196 bytes<br>
+> **Size (gzip):** 183 bytes<br>
 > **Availability:** [CommonJS](https://unpkg.com/escalade/sync/index.js), [ES Module](https://unpkg.com/escalade/sync/index.mjs)
 
 This is the opt-in mode, ideal for scenarios where `async` usage cannot be supported.
@@ -91,19 +91,23 @@ const pkg = await escalade(input, (dir, names) => {
 console.log(pkg);
 //=> /Users/lukeed/oss/escalade/package.json
 
-// Now search for "license"
-// ~> Will never leave "/Users/lukeed/oss/escalade" directory
-const license = await escalade(input, (dir, names) => {
+// Now search for "missing123.txt"
+// (Assume it doesn't exist anywhere!)
+const missing = await escalade(input, (dir, names) => {
   console.log('~> dir:', dir);
-  return names.includes('license') && 'license';
+  return names.includes('missing123.txt') && 'missing123.txt';
 });
 
 //~> dir: /Users/lukeed/oss/escalade/test/fixtures/foobar
 //~> dir: /Users/lukeed/oss/escalade/test/fixtures
 //~> dir: /Users/lukeed/oss/escalade/test
 //~> dir: /Users/lukeed/oss/escalade
+//~> dir: /Users/lukeed/oss
+//~> dir: /Users/lukeed
+//~> dir: /Users
+//~> dir: /
 
-console.log(license);
+console.log(missing);
 //=> undefined
 ```
 

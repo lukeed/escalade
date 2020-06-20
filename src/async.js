@@ -1,23 +1,22 @@
 import { dirname, resolve } from 'path';
 import { readdir, stat } from 'fs';
 import { promisify } from 'util';
-import { homedir } from 'os';
 
 const toStats = promisify(stat);
 const toRead = promisify(readdir);
 
 export default async function (start, callback) {
-	let tmp, stop = homedir();
 	let dir = resolve('.', start);
-	let stats = await toStats(dir);
+	let tmp, stats = await toStats(dir);
 
 	if (!stats.isDirectory()) {
 		dir = dirname(dir);
 	}
 
-	while (dir.startsWith(stop)) {
+	while (true) {
 		tmp = await callback(dir, await toRead(dir));
 		if (tmp) return resolve(dir, tmp);
-		dir = dirname(dir);
+		dir = dirname(tmp = dir);
+		if (tmp === dir) break;
 	}
 }
