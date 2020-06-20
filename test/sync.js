@@ -6,10 +6,6 @@ import escalade from '../src/sync';
 
 const fixtures = join(__dirname, 'fixtures');
 
-if (process.platform === 'win32') {
-	console.log('HOME DIR:::', homedir(), fixtures);
-}
-
 test('should export a function', () => {
 	assert.type(escalade, 'function');
 });
