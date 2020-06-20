@@ -13,11 +13,12 @@ const filter = name => (dir, files) => files.includes(name) && name;
 const contenders = {
 	'find-up': x => findup(x, { cwd: file }),
 	'escalade': x => escalade(file, filter(x)),
+	'find-up.sync': x => findup.sync(x, { cwd: file }),
 	'escalade/sync': x => sync(file, filter(x)),
 }
 
 function pad(str) {
-	return str + ' '.repeat(20 - str.length);
+	return str + ' '.repeat(16 - str.length);
 }
 
 async function runner(target, expects) {

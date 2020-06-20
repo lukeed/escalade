@@ -5,9 +5,9 @@
 With [escalade](https://en.wikipedia.org/wiki/Escalade), you can scale parent directories until you've found what you're looking for.<br>Given an input file or directory, `escalade` will continue executing your callback function until either:
 
 1) the callback returns a truthy value
-2) `escalade` has reached the root directory (`process.cwd()`)
+2) `escalade` has reached the `$HOME` directory ([`os.homedir()`](https://nodejs.org/api/os.html#os_os_homedir))
 
-> **Important:**<br>Please note that `escalade` will never traverse _beyond_ the root directory.<br>Additionally, `escalade` only deals with direct ancestry – it will not dive into parents' sibling directories.
+> **Important:**<br>Please note that `escalade` will never traverse _beyond_ the user's home directory.<br>Additionally, `escalade` only deals with direct ancestry – it will not dive into parents' sibling directories.
 
 ## Install
 
@@ -152,24 +152,27 @@ If the string is an absolute path, then it's left as is. Otherwise, the string i
 
 ```
 # Load Time
-  find-up:        3.948ms
-  escalade:       0.493ms
-  escalade/sync:  0.327ms
+  find-up         3.948ms
+  escalade        0.493ms
+  escalade/sync   0.327ms
 
 # Levels: 6 (target = "foo.txt"):
-  find-up              x 30,614 ops/sec ±7.80% (46 runs sampled)
-  escalade             x 46,814 ops/sec ±3.38% (74 runs sampled)
-  escalade/sync        x  9,319 ops/sec ±0.53% (89 runs sampled)
+  find-up          x 24,856 ops/sec ±6.46% (55 runs sampled)
+  escalade         x 73,084 ops/sec ±4.23% (73 runs sampled)
+  find-up.sync     x  3,663 ops/sec ±1.12% (83 runs sampled)
+  escalade/sync    x  9,360 ops/sec ±0.62% (88 runs sampled)
 
 # Levels: 12 (target = "package.json"):
-  find-up              x 26,421 ops/sec ±16.54% (32 runs sampled)
-  escalade             x 49,618 ops/sec ±2.82% (80 runs sampled)
-  escalade/sync        x  4,721 ops/sec ±0.51% (92 runs sampled)
+  find-up          x 27,024 ops/sec ±11.20% (68 runs sampled)
+  escalade         x 72,625 ops/sec ±5.18% (79 runs sampled)
+  find-up.sync     x  1,644 ops/sec ±1.16% (92 runs sampled)
+  escalade/sync    x  4,556 ops/sec ±0.57% (94 runs sampled)
 
-# Levels: 14 (target = "missing123.txt"):
-  find-up              x 30,254 ops/sec ±15.38% (66 runs sampled)
-  escalade             x 50,126 ops/sec ±2.45% (84 runs sampled)
-  escalade/sync        x  4,173 ops/sec ±0.45% (93 runs sampled)
+# Levels: 16 (target = "missing123.txt"):
+  find-up          x 29,964 ops/sec ±12.71% (76 runs sampled)
+  escalade         x 72,445 ops/sec ±25.38% (29 runs sampled)
+  find-up.sync     x  1,087 ops/sec ±0.57% (93 runs sampled)
+  escalade/sync    x  2,342 ops/sec ±0.51% (94 runs sampled)
 ```
 
 
