@@ -39,8 +39,6 @@ This is the opt-in mode, ideal for scenarios where `async` usage cannot be suppo
 
 ***Example Structure***
 
-> Assume `process.cwd()` is `/Users/lukeed/oss/escalade`
-
 ```
 /Users/lukeed
   └── oss
@@ -156,9 +154,9 @@ If the string is an absolute path, then it's left as is. Otherwise, the string i
 
 ```
 # Load Time
-  find-up         3.948ms
-  escalade        0.493ms
-  escalade/sync   0.327ms
+  find-up         3.891ms
+  escalade        0.485ms
+  escalade/sync   0.309ms
 
 # Levels: 6 (target = "foo.txt"):
   find-up          x 24,856 ops/sec ±6.46% (55 runs sampled)
@@ -167,16 +165,16 @@ If the string is an absolute path, then it's left as is. Otherwise, the string i
   escalade/sync    x  9,360 ops/sec ±0.62% (88 runs sampled)
 
 # Levels: 12 (target = "package.json"):
-  find-up          x 27,024 ops/sec ±11.20% (68 runs sampled)
-  escalade         x 72,625 ops/sec ±5.18% (79 runs sampled)
-  find-up.sync     x  1,644 ops/sec ±1.16% (92 runs sampled)
-  escalade/sync    x  4,556 ops/sec ±0.57% (94 runs sampled)
+  find-up          x 29,300 ops/sec ±10.68% (70 runs sampled)
+  escalade         x 73,685 ops/sec ± 5.66% (66 runs sampled)
+  find-up.sync     x  1,707 ops/sec ± 0.58% (91 runs sampled)
+  escalade/sync    x  4,667 ops/sec ± 0.68% (94 runs sampled)
 
-# Levels: 16 (target = "missing123.txt"):
-  find-up          x 29,964 ops/sec ±12.71% (76 runs sampled)
-  escalade         x 72,445 ops/sec ±25.38% (29 runs sampled)
-  find-up.sync     x  1,087 ops/sec ±0.57% (93 runs sampled)
-  escalade/sync    x  2,342 ops/sec ±0.51% (94 runs sampled)
+# Levels: 18 (target = "missing123.txt"):
+  find-up          x 21,818 ops/sec ±17.37% (14 runs sampled)
+  escalade         x 67,101 ops/sec ±21.60% (20 runs sampled)
+  find-up.sync     x  1,037 ops/sec ± 2.86% (88 runs sampled)
+  escalade/sync    x  1,248 ops/sec ± 0.50% (93 runs sampled)
 ```
 
 
