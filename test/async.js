@@ -6,6 +6,10 @@ import escalade from '../src/async';
 
 const fixtures = join(__dirname, 'fixtures');
 
+if (process.platform === 'win32') {
+	console.log('HOME DIR:::', homedir(), fixtures);
+}
+
 test('should export a function', () => {
 	assert.type(escalade, 'function');
 });
@@ -58,7 +62,7 @@ test('should never leave `os.homedir()` parent', async () => {
 		return false;
 	});
 
-	let rgx = /[\/\\]+/g;
+	let rgx = /[\\\/]+/g;
 	assert.is(output, undefined);
 	assert.is(levels, 1 + fixtures.split(rgx).length - homedir().split(rgx).length);
 });
