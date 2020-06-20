@@ -1,19 +1,18 @@
 import { dirname, resolve } from 'path';
 import { readdirSync, statSync } from 'fs';
-import { homedir } from 'os';
 
 export default function (start, callback) {
-	let tmp, stop = homedir();
 	let dir = resolve('.', start);
-	let stats = statSync(dir);
+	let tmp, stats = statSync(dir);
 
 	if (!stats.isDirectory()) {
 		dir = dirname(dir);
 	}
 
-	while (dir.startsWith(stop)) {
+	while (true) {
 		tmp = callback(dir, readdirSync(dir));
 		if (tmp) return resolve(dir, tmp);
-		dir = dirname(dir);
+		dir = dirname(tmp = dir);
+		if (tmp === dir) break;
 	}
 }

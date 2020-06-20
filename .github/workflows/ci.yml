@@ -23,8 +23,6 @@ jobs:
 
     - name: Test w/ Coverage
       run: nyc --include=src npm test
-      env:
-        USERPROFILE: "D:\\a\\escalade\\escalade"
 
     - name: Report
       if: matrix.nodejs >= 14 && matrix.os == 'ubuntu-latest'

@@ -51,16 +51,16 @@ test('should terminate walker immediately', async () => {
 	assert.is(output, join(fixtures, '1.js'));
 });
 
-test('should never leave `os.homedir()` parent', async () => {
+test('should traverse until root directory', async () => {
 	let levels = 0;
+
 	let output = await escalade(fixtures, () => {
 		levels++;
 		return false;
 	});
 
-	let rgx = /[\\\/]+/g;
 	assert.is(output, undefined);
-	assert.is(levels, 1 + fixtures.split(rgx).length - homedir().split(rgx).length);
+	assert.is(levels, fixtures.split(/[\\\/]+/g).length);
 });
 
 test('should end after `process.cwd()` read', async () => {
