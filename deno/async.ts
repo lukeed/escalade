@@ -11,6 +11,7 @@ async function toItems(dir: string) {
 	return list;
 }
 
+/** Requires `allow-read` permission. */
 export default async function (start: string, callback: Callback) {
 	let dir = resolve('.', start);
 	let stats = await Deno.stat(dir);

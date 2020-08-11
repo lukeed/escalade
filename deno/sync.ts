@@ -10,6 +10,7 @@ function toItems(dir: string) {
 	return list;
 }
 
+/** Requires `allow-read` permission. */
 export default function (start: string, callback: Callback) {
 	let dir = resolve('.', start);
 	let stats = Deno.statSync(dir);
