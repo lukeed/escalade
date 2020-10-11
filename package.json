@@ -13,14 +13,20 @@
     "url": "https://lukeed.com"
   },
   "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
-    },
-    "./sync": {
-      "import": "./sync/index.mjs",
-      "require": "./sync/index.js"
-    }
+    ".": [
+      {
+        "import": "./dist/index.mjs",
+        "require": "./dist/index.js"
+      },
+      "./dist/index.js"
+    ],
+    "./sync": [
+      {
+        "import": "./sync/index.mjs",
+        "require": "./sync/index.js"
+      },
+      "./sync/index.js"
+    ]
   },
   "files": [
     "*.d.ts",
