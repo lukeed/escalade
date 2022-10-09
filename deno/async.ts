@@ -1,4 +1,4 @@
-import { dirname, resolve } from 'https://deno.land/std/path/mod.ts'
+import { dirname, resolve } from 'https://deno.land/std@0.159.0/path/mod.ts'
 
 type Promisable<T> = T | Promise<T>;
 export type Callback = (directory: string, files: string[]) => Promisable<string | false | void>

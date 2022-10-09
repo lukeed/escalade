@@ -1,4 +1,4 @@
-import { dirname, resolve } from 'https://deno.land/std/path/mod.ts'
+import { dirname, resolve } from 'https://deno.land/std@0.159.0/path/mod.ts'
 
 export type Callback = (directory: string, files: string[]) => string | false | void;
 
