@@ -4,30 +4,35 @@ on: [push, pull_request]
 
 jobs:
   test:
-    name: Node.js v${{ matrix.nodejs }} (${{ matrix.os }})
-    runs-on: ${{ matrix.os }}
+    name: Node.js v${{ matrix.nodejs }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        nodejs: [8, 10, 12, 14]
+        nodejs: [8, 10, 12, 14, 16, 18]
         os: [ubuntu-latest, windows-latest, macOS-latest]
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.nodejs }}
 
     - name: Install
-      run: |
-        npm install
-        npm install -g nyc
+      run: npm install
+
+    - name: Test
+      if: matrix.nodejs < 18
+      run: npm test
 
     - name: Test w/ Coverage
-      run: nyc --include=src npm test
+      if: matrix.nodejs >= 18
+      run: |
+        npm install -g c8
+        c8 --include=src npm test
 
     - name: Report
-      if: matrix.nodejs >= 14 && matrix.os == 'ubuntu-latest'
+      if: matrix.nodejs >= 18 && matrix.os == 'ubuntu-latest'
       run: |
-        nyc report --reporter=text-lcov > coverage.lcov
+        c8 report --reporter=text-lcov > coverage.lcov
         bash <(curl -s https://codecov.io/bash)
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
