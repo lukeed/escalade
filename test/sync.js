@@ -1,5 +1,4 @@
 import { test } from 'uvu';
-import { homedir } from 'os';
 import { join, resolve } from 'path';
 import * as assert from 'uvu/assert';
 import escalade from '../src/sync';
